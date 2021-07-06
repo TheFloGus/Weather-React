@@ -1,8 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import PrintAll from './print'
 import './style.css';
-// import backgroundDay from './img/15.00.webp';
-// import {image00, image01, image02, image03, image04, image05, image06, image07, image08, image09, image10, image11, image12, image13, image14, image15, image16, image17, image18, image19, image20, image21, image22, image23} from './images'
 import * as ImageObj from './images'
 
 function App() {
