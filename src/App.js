@@ -11,7 +11,7 @@ function App() {
 	const [history, setHistory] = useState(JSON.parse(localStorage.getItem('history')) || []);
 	const [isHistory, setIsHistory] = useState(false)
 	const [imageUrl, setImageUrl] = useState(ImageObj.image15)
-	
+	const [cache, setCache] = useState([])
 
 	function changeHandler ({target}) {
 		setValue(target.value)
@@ -54,7 +54,6 @@ function App() {
 		
 	}
 
-
 	function createWeatherObject(data){
 		return {
 			location: `${data.location.name} , ${data.location.country}`,
@@ -67,6 +66,16 @@ function App() {
 			pressure: data.current.pressure
 		}
 	}
+
+	useEffect(()=>{
+		let img;
+		for (let key in ImageObj) {
+			// eslint-disable-next-line no-undef
+			img = new Image();
+			img.src = ImageObj[key];
+			setCache([...cache, img])
+		}
+	}, [])
 	
 	useEffect(() => {
 		fetch(`http://api.weatherstack.com/current?access_key=3db9e539ae24dd6589ee5693b2cfbcba&query=${city}`)
