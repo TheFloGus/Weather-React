@@ -1,6 +1,6 @@
 import React from 'react';
 
-function PrintAll(isHistory, history, weather){
+function PrintAll(isHistory, history, setHistory, weather){
 
 	function printWeather (data) {
 		return (
@@ -68,7 +68,7 @@ function PrintAll(isHistory, history, weather){
 				<div className = 'line'></div> 
 			</>)
 			})}</>
-			<button id = 'clearHistory' className = 'form__btn clearHistory'>Clear all</button>
+			<button id = 'clearHistory' className = 'form__btn clearHistory' onClick = {() => setHistory([])}>Clear all</button>
 		</>
 		)
 	}

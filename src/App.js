@@ -5,10 +5,11 @@ import './style.css';
 function App() {
 
 	const [value, setValue] = useState('')
-	const [city, setCity] = useState('')
+	const [city, setCity] = useState('minsk')
 	const [weather, setWeather] = useState({})
-	const [history, setHistory] = useState([]);
+	const [history, setHistory] = useState(JSON.parse(localStorage.getItem('history')) || []);
 	const [isHistory, setIsHistory] = useState(false)
+	
 
 	function changeHandler ({target}) {
 		setValue(target.value)
@@ -29,18 +30,16 @@ function App() {
 
 	function historyHandler(e){
 		e.preventDefault();
-		setIsHistory(true)
+		isHistory ? setIsHistory(false) : setIsHistory(true);
 	}
 
 	function getLocalLocation(e){
-		if(e){
-			e.preventDefault();
-		}
+		e.preventDefault()
 		navigator.geolocation.getCurrentPosition(position => {
 			setCity(`${position.coords.latitude},${  position.coords.longitude}`)
 		})
+		setIsHistory(false);
 	}
-	getLocalLocation();
 
 
 	function createWeatherObject(data){
@@ -56,9 +55,8 @@ function App() {
 		}
 	}
 	
-
 	useEffect(() => {
-		fetch(`http://api.weatherstack.com/current?access_key=335d7d1f5a969d13a89af4497e51148d&query=${city}`)
+		fetch(`http://api.weatherstack.com/current?access_key=3db9e539ae24dd6589ee5693b2cfbcba&query=${city}`)
     	.then (r => r.json())
     	.then(data => {
 			if (data.success === false) {
@@ -77,6 +75,10 @@ function App() {
 		.catch(err=>console.log(err))
 	}, [city])
 
+	useEffect(() => {
+		setTimeout(localStorage.setItem('history', JSON.stringify(history)), 1000)
+	}, [history]);
+
   return (
 	<div className="wrap">
 		<div className="container">
@@ -87,7 +89,7 @@ function App() {
 				<button id = 'button' className = 'form__btn' type="submit" onClick = {clickHandler}>Search</button>
 			</form>
 			<div id = 'data' className = 'data'>
-				{PrintAll(isHistory, history, weather)}
+				{PrintAll(isHistory, history, setHistory, weather)}
 			</div>
 		</div>
 	</div>
