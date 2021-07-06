@@ -1,6 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import PrintAll from './print'
 import './style.css';
+// import backgroundDay from './img/15.00.webp';
+// import {image00, image01, image02, image03, image04, image05, image06, image07, image08, image09, image10, image11, image12, image13, image14, image15, image16, image17, image18, image19, image20, image21, image22, image23} from './images'
+import * as ImageObj from './images'
 
 function App() {
 
@@ -9,6 +12,7 @@ function App() {
 	const [weather, setWeather] = useState({})
 	const [history, setHistory] = useState(JSON.parse(localStorage.getItem('history')) || []);
 	const [isHistory, setIsHistory] = useState(false)
+	const [imageUrl, setImageUrl] = useState(ImageObj.image15)
 	
 
 	function changeHandler ({target}) {
@@ -41,6 +45,17 @@ function App() {
 		setIsHistory(false);
 	}
 
+	function changeBG(data){
+		const {time} = data;
+		let hours = time[0]+time[1]
+		for (let key in ImageObj){
+			if(key === `image${hours}`){
+				setImageUrl(ImageObj[key])
+			}
+		}
+		
+	}
+
 
 	function createWeatherObject(data){
 		return {
@@ -68,11 +83,13 @@ function App() {
 					let newHistory = history;
 					newHistory.pop();
 					setHistory(newHistory)
+					changeBG(weather)
 				}
 				setHistory([weather, ...history])
 			}
 		})
 		.catch(err=>console.log(err))
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [city])
 
 	useEffect(() => {
@@ -80,7 +97,7 @@ function App() {
 	}, [history]);
 
   return (
-	<div className="wrap">
+	<div className="wrap" style = {{backgroundImage: `url(${imageUrl})`}}>
 		<div className="container">
 			<form className = 'form' onKeyPress = {buttonHandler}>
 				<button id = 'localWeather' className = 'form__btn' onClick = {getLocalLocation}>Local</button>
