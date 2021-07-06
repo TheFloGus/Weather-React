@@ -7,16 +7,14 @@
 }
 
 body{
-	/* background-image: url(./components/img/15.00.webp); */
-	background-color: darkblue;
 	background-size: cover;
 	background-repeat: no-repeat;
 }
 
 .wrap {
+	background-image: url(./img/15.00.webp);
 	width: 100%;
 	min-height: 100vh;
-	/* background-image: url(./components/img/15.00.webp); */
 	background-size: cover;
 	background-repeat: no-repeat;
 	margin: 0 auto;
