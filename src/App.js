@@ -113,7 +113,7 @@ function App() {
 				<button id = 'button' className = 'form__btn' type="submit" onClick = {clickHandler}>Search</button>
 			</form>
 			<div id = 'data' className = 'data'>
-				{PrintAll(isHistory, history, setHistory, weather)}
+				<PrintAll isHistory = {isHistory} history = {history} setHistory = {setHistory} weather = {weather}/>
 			</div>
 		</div>
 	</div>

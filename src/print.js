@@ -1,6 +1,8 @@
 import React from 'react';
 
-function PrintAll(isHistory, history, setHistory, weather){
+function PrintAll(props){
+
+	const {isHistory, history, weather, setHistory} = props;
 
 	function printWeather (data) {
 		return (
