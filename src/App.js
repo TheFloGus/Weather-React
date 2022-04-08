@@ -17,6 +17,21 @@ function App() {
 		setValue(target.value)
 	}
 
+	function preloadImages(srcs) {
+		if (!preloadImages.cache) {
+			preloadImages.cache = [];
+		}
+		let img;
+		for (let image in ImageObj) {
+			// eslint-disable-next-line no-undef
+			img = new Image();
+			img.src = srcs[image];
+			preloadImages.cache.push(img);
+		}
+	}
+	
+	preloadImages(ImageObj);
+
 	function clickHandler(e){
 		e.preventDefault()
 		setCity(value)
@@ -49,6 +64,7 @@ function App() {
 		for (let key in ImageObj){
 			if(key === `image${hours}`){
 				setImageUrl(ImageObj[key])
+				console.log('nice');
 			}
 		}
 		
