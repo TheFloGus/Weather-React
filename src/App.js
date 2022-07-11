@@ -64,7 +64,6 @@ function App() {
 		for (let key in ImageObj){
 			if(key === `image${hours}`){
 				setImageUrl(ImageObj[key])
-				console.log('nice');
 			}
 		}
 		
